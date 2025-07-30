@@ -1,7 +1,8 @@
 // Importa o decorator IsNotEmpty para validar que os campos não sejam vazios
 import { IsNotEmpty } from "class-validator";
 // Importa decorators do TypeORM para mapear a classe com uma tabela no banco de dados
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Tema } from "../../tema/entities/tema.entity";
 
 // Define que essa classe é uma entidade e será mapeada para a tabela 'tb_postagens' no banco
 @Entity({ name: 'tb_postagens' })
@@ -25,4 +26,13 @@ export class Postagem {
     // Define que essa coluna será preenchida automaticamente com a data da última atualização
     @UpdateDateColumn()
     data: Date;
+
+    @ManyToOne(() => Tema, (tema) => tema.postagens, {
+        onDelete: 'CASCADE', // Se o tema for deletado, as postagens associadas também serão
+    })
+// Relaciona a postagem com um tema específico
+     @JoinColumn({ name: 'tema_id' })
+     tema: Tema;
 }
+
+

@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Postagem } from './postagem/entities/postagem.entity';
 // Importa o módulo que cuida das funcionalidades relacionadas à Postagem
 import { PostagemModule } from './postagem/postagem.module';
+import { Tema } from './tema/entities/tema.entity';
+import { TemaModule } from './tema/tema.module';
 
 @Module({
   // Configurações dos módulos que serão carregados na aplicação
@@ -18,11 +20,12 @@ import { PostagemModule } from './postagem/postagem.module';
       username: 'root',       // Usuário do banco
       password: '8486',       // Senha do banco (cuidado com exposição!)
       database: 'db_blogpessoal',  // Nome do banco de dados a ser usado
-      entities: [Postagem],   // Entidades que o TypeORM deve gerenciar
+      entities: [Postagem, Tema],   // Entidades que o TypeORM deve gerenciar
       synchronize: true,      // Sincroniza o esquema do banco automaticamente (bom para dev)
     }),
     // Importa o módulo Postagem para registrar suas rotas e serviços
-    PostagemModule
+    PostagemModule, 
+    TemaModule, // Importa o módulo Tema para registrar suas rotas e serviços
   ],
   // Controllers globais (nenhum declarado aqui)
   controllers: [],
