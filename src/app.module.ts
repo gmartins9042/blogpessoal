@@ -1,21 +1,32 @@
+// Importa o decorator Module do NestJS para definir módulos
 import { Module } from '@nestjs/common';
+// Importa o módulo TypeOrmModule para integrar TypeORM com NestJS
 import { TypeOrmModule } from '@nestjs/typeorm';
+// Importa a entidade Postagem para registrar no TypeORM
 import { Postagem } from './postagem/entities/postagem.entity';
+// Importa o módulo que cuida das funcionalidades relacionadas à Postagem
+import { PostagemModule } from './postagem/postagem.module';
 
 @Module({
+  // Configurações dos módulos que serão carregados na aplicação
   imports: [
+    // Configura o TypeORM para conectar com o banco MySQL
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '8486' ,
-      database: 'db_blogpessoal',
-      entities: [Postagem],
-      synchronize: true,
+      type: 'mysql',          // Tipo do banco de dados
+      host: 'localhost',      // Endereço do servidor do banco
+      port: 3306,             // Porta do banco MySQL padrão
+      username: 'root',       // Usuário do banco
+      password: '8486',       // Senha do banco (cuidado com exposição!)
+      database: 'db_blogpessoal',  // Nome do banco de dados a ser usado
+      entities: [Postagem],   // Entidades que o TypeORM deve gerenciar
+      synchronize: true,      // Sincroniza o esquema do banco automaticamente (bom para dev)
     }),
+    // Importa o módulo Postagem para registrar suas rotas e serviços
+    PostagemModule
   ],
+  // Controllers globais (nenhum declarado aqui)
   controllers: [],
+  // Providers globais (nenhum declarado aqui)
   providers: [],
 })
 export class AppModule {}
