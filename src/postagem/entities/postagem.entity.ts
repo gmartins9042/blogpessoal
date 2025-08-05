@@ -33,6 +33,6 @@ export class Postagem {
 // Relaciona a postagem com um tema específico
      @JoinColumn({ name: 'tema_id' })
      tema: Tema;
-}
+};
 
 

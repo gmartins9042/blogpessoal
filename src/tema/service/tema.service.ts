@@ -13,7 +13,7 @@ export class TemaService {
     async findAll(): Promise<Tema[]> {
         return await this.temaRepository.find({
             relations: {
-                postagem: true
+                postagem: true v c
             }
         });
     }
