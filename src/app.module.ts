@@ -8,6 +8,9 @@ import { Postagem } from './postagem/entities/postagem.entity';
 import { PostagemModule } from './postagem/postagem.module';
 import { Tema } from './tema/entities/tema.entity';
 import { TemaModule } from './tema/tema.module';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { Usuario } from './usuario/entities/usuario.entity';
 
 @Module({
   // Configurações dos módulos que serão carregados na aplicação
@@ -20,12 +23,14 @@ import { TemaModule } from './tema/tema.module';
       username: 'root',       // Usuário do banco
       password: '8486',       // Senha do banco (cuidado com exposição!)
       database: 'db_blogpessoal',  // Nome do banco de dados a ser usado
-      entities: [Postagem, Tema],   // Entidades que o TypeORM deve gerenciar
+      entities: [Postagem, Tema, Usuario],   // Entidades que o TypeORM deve gerenciar
       synchronize: true,      // Sincroniza o esquema do banco automaticamente (bom para dev)
     }),
     // Importa o módulo Postagem para registrar suas rotas e serviços
     PostagemModule, 
     TemaModule, // Importa o módulo Tema para registrar suas rotas e serviços
+    AuthModule, // Importa o módulo Auth para gerenciar autenticação e segurança
+    UsuarioModule, // Importa o módulo Usuario para gerenciar usuários
   ],
   // Controllers globais (nenhum declarado aqui)
   controllers: [],

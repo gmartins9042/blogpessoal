@@ -20,7 +20,8 @@ export class PostagemService {
     async findAll(): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             relations: {
-                tema: true // Inclui a relação com o tema
+                tema: true, // Inclui a relação com o tema
+                usuario: true // Inclui a relação com o usuário
             }
         });
     }
@@ -33,7 +34,8 @@ export class PostagemService {
                 id
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true // Inclui a relação com o usuário
             }
         });
 
@@ -53,7 +55,8 @@ export class PostagemService {
                 titulo: ILike(`%${titulo}%`)
             },
             relations: {
-                tema: true // Inclui a relação com o tema
+                tema: true, // Inclui a relação com o tema
+                usuario: true // Inclui a relação com o usuário
             }
         });
     }

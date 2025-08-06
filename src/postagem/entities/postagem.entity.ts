@@ -3,6 +3,7 @@ import { IsNotEmpty } from "class-validator";
 // Importa decorators do TypeORM para mapear a classe com uma tabela no banco de dados
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Tema } from "../../tema/entities/tema.entity";
+import { Usuario } from "../../usuario/entities/usuario.entity";
 
 // Define que essa classe é uma entidade e será mapeada para a tabela 'tb_postagens' no banco
 @Entity({ name: 'tb_postagens' })
@@ -33,6 +34,14 @@ export class Postagem {
 // Relaciona a postagem com um tema específico
      @JoinColumn({ name: 'tema_id' })
      tema: Tema;
+
+     @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+        onDelete: 'CASCADE', // Se o usuário for deletado, as postagens associadas também serão
+    })
+// Relaciona a postagem com um usuário específico
+     // Define que a coluna 'usuario_id' será usada para o relacionamento
+     @JoinColumn({ name: 'usuario_id' })
+     usuario: Usuario;
 };
 
 
