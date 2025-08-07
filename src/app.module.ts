@@ -23,7 +23,7 @@ import { Usuario } from './usuario/entities/usuario.entity';
       username: 'root',       // Usuário do banco
       password: '8486',       // Senha do banco (cuidado com exposição!)
       database: 'db_blogpessoal',  // Nome do banco de dados a ser usado
-      entities: [Postagem, Tema, Usuario],   // Entidades que o TypeORM deve gerenciar
+      entities: [Postagem, Tema, Usuario, ],   // Entidades que o TypeORM deve gerenciar
       synchronize: true,      // Sincroniza o esquema do banco automaticamente (bom para dev)
     }),
     // Importa o módulo Postagem para registrar suas rotas e serviços
