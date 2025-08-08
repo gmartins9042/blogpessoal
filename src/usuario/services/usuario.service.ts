@@ -60,19 +60,18 @@ export class UsuarioService {
 
     async update(usuario: Usuario): Promise<Usuario> {
 
-        await this.findById(usuario.id);
+        let updateUsuario: Usuario = await this.findById(usuario.id);
+        let buscaUsuario = await this.findByUsuario(usuario.usuario);
 
-        if(usuario.id)
-            throw new HttpException('Id não informado!', HttpStatus.BAD_REQUEST);
-
-        const buscaUsuario = await this.findByUsuario(usuario.usuario);
+        if (!updateUsuario)
+            throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
 
         if (buscaUsuario && buscaUsuario.id !== usuario.id)
-            throw new HttpException('Usuário (e-mail) já Cadastrado!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('O Usuário (e-mail) já existe!', HttpStatus.BAD_REQUEST);
 
         usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
         return await this.usuarioRepository.save(usuario);
 
-    }
 
+    }
 }
