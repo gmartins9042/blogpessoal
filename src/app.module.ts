@@ -11,6 +11,7 @@ import { TemaModule } from './tema/tema.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { Usuario } from './usuario/entities/usuario.entity';
+import { AppController } from './app.controller';
 
 @Module({
   // Configurações dos módulos que serão carregados na aplicação
@@ -33,7 +34,7 @@ import { Usuario } from './usuario/entities/usuario.entity';
     UsuarioModule, // Importa o módulo Usuario para gerenciar usuários
   ],
   // Controllers globais (nenhum declarado aqui)
-  controllers: [],
+  controllers: [AppController],
   // Providers globais (nenhum declarado aqui)
   providers: [],
 })

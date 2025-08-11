@@ -1,47 +1,40 @@
-// Importa o decorator IsNotEmpty para validar que os campos não sejam vazios
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
-// Importa decorators do TypeORM para mapear a classe com uma tabela no banco de dados
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Tema } from "../../tema/entities/tema.entity";
-import { Usuario } from "../../usuario/entities/usuario.entity";
+import { Usuario } from './../../usuario/entities/usuario.entity';
 
-// Define que essa classe é uma entidade e será mapeada para a tabela 'tb_postagens' no banco
-@Entity({ name: 'tb_postagens' })
+@Entity({name: "tb_postagens"})
 export class Postagem {
 
-    // Define que a coluna 'id' é a chave primária e gerada automaticamente
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ApiProperty()  
+    @PrimaryGeneratedColumn()    
+    id: number
 
-    // Validação: esse campo não pode estar vazio (usado com ValidationPipe no controller)
+    @ApiProperty()  
     @IsNotEmpty()
-    // Mapeia o campo 'titulo' com até 100 caracteres e obrigatório (nullable: false)
-    @Column({ length: 100, nullable: false })
-    titulo: string;
+    @Column({length: 100, nullable: false})
+    titulo: string
 
+    @ApiProperty()  
     @IsNotEmpty()
-    // Mapeia o campo 'texto' com até 1000 caracteres e obrigatório
-    @Column({ length: 1000, nullable: false })
-    texto: string;
+    @Column({length: 1000, nullable: false})
+    texto: string
 
-    // Define que essa coluna será preenchida automaticamente com a data da última atualização
+    @ApiProperty()  
     @UpdateDateColumn()
-    data: Date;
-
-    @ManyToOne(() => Tema, (tema) => tema.postagens, {
-        onDelete: 'CASCADE', // Se o tema for deletado, as postagens associadas também serão
+    data: Date
+    
+    @ApiProperty({ type: () => Tema })  
+    @ManyToOne(() => Tema, (tema) => tema.postagem, {
+        onDelete: "CASCADE"
     })
-// Relaciona a postagem com um tema específico
-     @JoinColumn({ name: 'tema_id' })
-     tema: Tema;
+    tema: Tema
 
-     @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
-        onDelete: 'CASCADE', // Se o usuário for deletado, as postagens associadas também serão
+    @ApiProperty({ type: () => Usuario })  
+    @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+        onDelete: "CASCADE"
     })
-// Relaciona a postagem com um usuário específico
-     // Define que a coluna 'usuario_id' será usada para o relacionamento
-     @JoinColumn({ name: 'usuario_id' })
-     usuario: Usuario;
-};
+    usuario: Usuario
 
-
+}
